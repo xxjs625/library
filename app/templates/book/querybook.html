@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+{% block title %}Flasky - Addbook{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>编辑书籍信息</h1>
+</div>
+<div class="col-md-4">
+    {{ wtf.quick_form(form) }}
+</div>
+<div>
+    <table class="table table-bordered">
+    <tr>
+        <th>书名</th>
+        <th>作者</th>
+        <th>位置</th>
+    </tr>
+     {% if querybook is not none %}
+         {% for i in range(0,count) %}
+            <tr class="success">
+                <td>{{ querybook[i].bookname }}</td>
+                <td>{{ querybook[i].author }}</td>
+                <td>{{ querybook[i].site }}</td>
+            </tr>
+         {% endfor %}
+    {% endif %}
+    </table>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.querybook') }}
+</div>
+{% endif %}
+</div>
+{% endblock %}
