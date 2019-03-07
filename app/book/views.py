@@ -47,7 +47,12 @@ def editbook():
 @book.route('/allbook')
 def allbook():
     allbook = db.session.execute('select bookname,author,site from books')
-    return render_template('book/allbook.html',allbook=allbook)
+    page = request.args.get('page', 1, type=int)
+    pagination = Book.query.order_by(Book.bookname.desc()).paginate(
+        page, error_out=False)
+    books = pagination.items
+
+    return render_template('book/allbook.html',allbook=allbook,pagination=pagination,books=books)
 
 
 @book.route('/querybook',methods=['GET', 'POST'])
@@ -65,4 +70,8 @@ def querybook():
         count = len(querybook)
         if querybook is None:
             flash('没有该书')
-    return render_template('book/querybook.html', form=form,querybook=querybook, bookname1=bookname1, count=count)
+    page = request.args.get('page', 1, type=int)
+    pagination = Book.query.order_by(Book.bookname.desc()).paginate(
+        page, error_out=False)
+    books = pagination.items
+    return render_template('book/querybook.html', form=form,querybook=querybook, bookname1=bookname1, count=count,pagination=pagination,books=books)

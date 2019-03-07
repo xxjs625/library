@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-
+{% import "_macros.html" as macros %}
 {% block title %}Flasky - Addbook{% endblock %}
 
 {% block page_content %}
@@ -20,4 +20,9 @@
             </tr>
     {% endfor %}
     </table>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.addbook') }}
+</div>
+{% endif %}
 {% endblock %}
