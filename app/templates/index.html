@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>hello </title>
+<style type="text/css">
+.bg {
+    background-image: url("../static/timg.jpg");
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;}
+
+</style>
+<body class="bg">
+<div style="color:lightseagreen" >
+<h1 style="color:orangered;"> 光电图书小站|<span style="color:goldenrod">GD library</h1>
+<h2>
+<div align="center">
+<pre id="aa"></pre>
+<div style="display:none" id="w">
+外物之味，久则可厌，读书之味，愈久愈深。 —— 程颐
+</div>
+<script language="javascript">
+    var index=0;
+    var word=document.getElementById("w").innerHTML;
+    function type(){
+        document.getElementById("aa").innerText = word.substring(0,index++);
+    }
+    setInterval(type, 200);
+</script>
+</div>
+</h2>
+
+<p><a href="{{ url_for('book.allbook') }}">
+ <div align="center"  >
+    <img  src="../static/1.gif" title="点击进入"width="400"height="300">
+ </div>
+</a></p>
+</div>
+</body>
+</html>
