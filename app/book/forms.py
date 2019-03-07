@@ -8,7 +8,6 @@ class addbookForm(FlaskForm):
         DataRequired()])
     author = StringField('作者', validators=[DataRequired()])
     site = StringField('位置', validators=[DataRequired()])
-
     submit = SubmitField('添加')
 class dropbookForm(FlaskForm):
     bookname = StringField('请输入书名', validators=[
@@ -22,3 +21,7 @@ class editbookForm(FlaskForm):
     author = StringField('新作者', validators=[DataRequired()])
     site = StringField('新位置', validators=[DataRequired()])
     submit = SubmitField('确认修改')
+class querybookForm(FlaskForm):
+    bookname =  StringField('查询书籍', validators=[
+        DataRequired()])
+    submit = SubmitField('查询')

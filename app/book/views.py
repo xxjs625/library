@@ -1,10 +1,10 @@
-from flask import render_template, redirect, request, url_for, flash
-from . import book
+from flask import render_template, redirect, request, url_for, flash,session
 from .. import db
 from ..models import Book
-from .forms import addbookForm,dropbookForm,editbookForm
+from .forms import addbookForm,dropbookForm,editbookForm, querybookForm
 from ..decorators import admin_required ,permission_required
 from flask_login import login_required
+from . import book
 @book.route('/addbook', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -48,3 +48,21 @@ def editbook():
 def allbook():
     allbook = db.session.execute('select bookname,author,site from books')
     return render_template('book/allbook.html',allbook=allbook)
+
+
+@book.route('/querybook',methods=['GET', 'POST'])
+def querybook():
+    bookname1 = None
+    querybook = None
+    count = 0
+    form = querybookForm()
+    if form.validate_on_submit():
+        bookname1 = form.bookname.data
+        #querybookname = form.querybookname.data
+        form.bookname.data = ''
+        #querybook = db.session.execute('select bookname,author,site from books where bookname="bookname1"')
+        querybook = Book.query.filter_by(bookname=bookname1).all() or Book.query.filter_by(author=bookname1).all()
+        count = len(querybook)
+        if querybook is None:
+            flash('没有该书')
+    return render_template('book/querybook.html', form=form,querybook=querybook, bookname1=bookname1, count=count)
