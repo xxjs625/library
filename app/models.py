@@ -3,7 +3,7 @@ from flask_login import UserMixin,AnonymousUserMixin
 from flask import current_app,request
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import db, login_manager
-from datetime import datetime
+from datetime import datetime,timedelta
 from markdown import markdown
 import bleach
 import hashlib
@@ -192,16 +192,33 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+
 class Book(db.Model):
     __tablename__ = 'books'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}
     id = db.Column(db.Integer, primary_key=True,index=True)
     bookname = db.Column(db.String(64), unique=True, index=True)
-    author =  db.Column(db.String(64),index=True)
-    site =  db.Column(db.String(64), unique=True, index=True)
+    author = db.Column(db.String(64),index=True)
+    site = db.Column(db.String(64), unique=True, index=True)
+    status = db.Column(db.String(64))
     def __repr__(self):
-        return '[ %r,%r,%r ]' % (self.bookname,self.author,self.site)
+        return '[ %r,%r,%r,%r ]' % (self.bookname,self.author,self.site, self.status
+                                    )
 
+
+dt = datetime.utcnow()
+dt3 = dt + timedelta(days=30)
+class Borrowbook(db.Model):
+    __tablename__ = 'borrowbooks'
+    __table_args__ = {'mysql_collate': 'utf8_general_ci'}
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    bookname1 = db.Column(db.String(64))
+    borrowname = db.Column(db.String(64),unique=True, index=True)
+    borrow_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    back_time = db.Column(db.DateTime, index=True, default=dt3)
+    def __repr__(self):
+        return '[ %r,%r,%r,%r ]' % (self.borrowname, self.bookname1, self.borrow_time, self.back_time
+                                    )
 class Post(db.Model):
     __tablename__ = 'posts'
     __table_args__ = {'mysql_collate': 'utf8_general_ci'}

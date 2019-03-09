@@ -16,6 +16,7 @@
         <th>书名</th>
         <th>作者</th>
         <th>位置</th>
+        <th>状态</th>
     </tr>
      {% if querybook is not none %}
          {% for i in range(0,count) %}
@@ -23,6 +24,7 @@
                 <td>{{ querybook[i].bookname }}</td>
                 <td>{{ querybook[i].author }}</td>
                 <td>{{ querybook[i].site }}</td>
+                <td>{{ querybook[i].status }}</td>
             </tr>
          {% endfor %}
     {% endif %}

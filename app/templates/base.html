@@ -40,8 +40,8 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="{{ url_for ('book.querybook') }}">书籍查询</a></li>
-					<li><a href="#">借书排行</a></li>
-					<li><a href="#">图书馆活动</a></li>
+					<li><a href="{{ url_for ('book.borrowbook') }}">借阅管理</a></li>
+					<li><a href="{{ url_for ('book.borrowquery') }}">借阅信息</a></li>
 					<li class="divider"></li>
 					<li><a href="#">分离的链接</a></li>
 					<li class="divider"></li>
