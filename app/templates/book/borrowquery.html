@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+{% block title %}Flasky - Addbook{% endblock %}
+
+{% block page_content %}
+ <table class="table table-bordered">
+    <tr>
+        <th>书名</th>
+        <th>作者</th>
+        <th>位置</th>borrowdbook
+        <th>借阅人</th>
+        <th>借阅日期</th>
+        <th>归还时间</th>
+
+    </tr>
+        {% for i in borrowdbook %}
+            <tr class="success">
+                <td>{{ i[0] }}</td>
+                <td>{{ i[1] }}</td>
+                <td>{{ i[2] }}</td>
+                <td>{{ i[3] }}</td>
+                <td>{{ i[4] }}</td>
+                <td>{{ i[5] }}</td>
+            </tr>
+    {% endfor %}
+    </table>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.borrowquery') }}
+</div>
+{% endif %}
+{% endblock %}
